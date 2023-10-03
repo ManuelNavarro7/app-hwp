@@ -48,7 +48,7 @@ export default async function IndPost({ params }) {
 
   const post = data?.postBy;
 
-  const imgaF = `${post.featuredImage.node.mediaItemUrl}`;
+  //   const imgaF = `${post.featuredImage.node.mediaItemUrl}`;
 
   return (
     <main>
@@ -56,7 +56,7 @@ export default async function IndPost({ params }) {
         <h1 className="title">{post.title}</h1>
       </div>
       <div className="div-main-content">
-        <Image alt={post.title} width={700} height={500} src={imgaF}></Image>
+        {/* <Image alt={post.title} width={700} height={500} src={imgaF}></Image> */}
         <article dangerouslySetInnerHTML={{ __html: post.content }}></article>
       </div>
     </main>
