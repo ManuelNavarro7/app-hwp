@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 import Image from "next/image.js";
 export default async function IndPost({ params }) {
   const queryPostByuri = gql`
-    query PostByUri($uri: String!) {
+    query PostByUri($uri: String) {
       postBy(uri: $uri) {
         title
         content
@@ -15,13 +15,24 @@ export default async function IndPost({ params }) {
       }
     }
   `;
+  //   const queryPostByuri = gql`
+  //     query PostByUri($uri: String!) {
+  //       postBy(uri: $uri) {
+  //         title
+  //         content
+  //         featuredImage {
+  //           node {
+  //             mediaItemUrl
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `;
 
-  const urlImg = `https://headlessroadev.wpengine.com/${params.uri}`;
-  console.log("GraphQL Endpoint URL:", urlImg);
   const { data } = await getClient().query({
     query: queryPostByuri, // Use "query" property to specify the query
     variables: {
-      uri: urlImg,
+      uri: `https://headlessroadev.wpengine.com/${params.uri}`,
     },
     context: {
       fetchOptions: {
