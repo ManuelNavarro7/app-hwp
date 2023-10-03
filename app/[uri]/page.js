@@ -29,10 +29,15 @@ export default async function IndPost({ params }) {
   //     }
   //   `;
 
+  const urlF = JSON.stringify(
+    `https://headlessroadev.wpengine.com/${params.uri}`
+  );
+  console.log(urlF);
+
   const { data } = await getClient().query({
     query: queryPostByuri, // Use "query" property to specify the query
     variables: {
-      uri: `https://headlessroadev.wpengine.com/${params.uri}`,
+      uri: urlF,
     },
     context: {
       fetchOptions: {
