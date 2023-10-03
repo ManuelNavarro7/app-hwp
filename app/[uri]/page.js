@@ -3,10 +3,11 @@ import { gql } from "@apollo/client";
 import Image from "next/image.js";
 export default async function IndPost({ params }) {
   const queryPostByuri = gql`
-    query PostByUri($uri: String) {
-      postBy(uri: $uri) {
+    query PostByUri($id: ID!) {
+      post(id: $id, idType: URI) {
         title
         content
+        uri
         featuredImage {
           node {
             mediaItemUrl
@@ -29,15 +30,12 @@ export default async function IndPost({ params }) {
   //     }
   //   `;
 
-  const urlF = JSON.stringify(
-    `https://headlessroadev.wpengine.com/${params.uri}`
-  );
-  console.log(urlF);
+  const urlF = params.uri;
 
   const { data } = await getClient().query({
     query: queryPostByuri, // Use "query" property to specify the query
     variables: {
-      uri: urlF,
+      id: urlF,
     },
     context: {
       fetchOptions: {
@@ -46,7 +44,7 @@ export default async function IndPost({ params }) {
     },
   });
 
-  const post = data?.postBy;
+  const post = data.post;
 
   const imgaF = `${post.featuredImage.node.mediaItemUrl}`;
 
