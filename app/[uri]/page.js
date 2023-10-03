@@ -16,10 +16,12 @@ export default async function IndPost({ params }) {
     }
   `;
 
+  const urlImg = `https://headlessroadev.wpengine.com/${params.uri}`;
+  console.log("GraphQL Endpoint URL:", urlImg);
   const { data } = await getClient().query({
     query: queryPostByuri, // Use "query" property to specify the query
     variables: {
-      uri: `https://headlessroadev.wpengine.com/${params.uri}`, // Interpolate the variable correctly
+      uri: urlImg,
     },
     context: {
       fetchOptions: {
